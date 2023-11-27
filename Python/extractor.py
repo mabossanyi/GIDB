@@ -16,6 +16,11 @@ class Extractor:
 
         return elements_list
 
+    def extract_weapons(self):
+        weapons_list = self._extract_html_from_filters_divider_tag("weapon")
+
+        return weapons_list
+
     def _extract_html_from_filters_divider_tag(self, string_to_find):
         pattern = '<div class="filters-divider"></div>.*?</div></div>'
         match_results = re.search(pattern, self._raw_html, re.IGNORECASE)
