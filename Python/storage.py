@@ -4,6 +4,7 @@ class Storage:
     _weapons = None
     _items = None
     _items_sets = None
+    _characters_raw_data = None
 
     # Constructors
     def __init__(self):
@@ -11,6 +12,7 @@ class Storage:
         self._weapons = list()
         self._items = list()
         self._items_sets = list()
+        self._characters_raw_data = list()
 
     # Getters
     def get_stored_elements(self):
@@ -24,6 +26,9 @@ class Storage:
 
     def get_stored_items_sets(self):
         return self._items_sets
+
+    def get_characters_raw_data(self):
+        return self._characters_raw_data
 
     # Methods
     def store_elements(self, elements):
@@ -53,3 +58,6 @@ class Storage:
             id_item = str([item[0] for item in self.get_stored_items()
                            if name == item[1]][0])
             self._items_sets.append((id_item, quantity, description))
+
+    def store_characters_raw_data(self, characters_raw_data):
+        self._characters_raw_data = characters_raw_data

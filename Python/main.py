@@ -31,6 +31,10 @@ def main():
     # Extract and store the items sets (i.e. the artifact sets description)
     extract_and_store_items_sets(artifacts_page_extractor, storage)
 
+    # Extract and store the characters data for each character on the main page
+    extract_and_store_characters_data(
+        main_page_url, main_page_extractor, storage)
+
 
 def get_page_extractor_from_url(url):
     page_browser = browser.Browser(url)
@@ -58,6 +62,11 @@ def extract_and_store_items(artifacts_extractor, storage):
 def extract_and_store_items_sets(artifacts_extractor, storage):
     items_sets = artifacts_extractor.extract_artifacts_description()
     storage.store_items_sets(items_sets)
+
+
+def extract_and_store_characters_data(url, page_extractor, storage):
+    characters_raw_data = page_extractor.extract_characters_raw_data(url)
+    storage.store_characters_raw_data(characters_raw_data)
 
 
 # Press the green button in the gutter to run the script.
