@@ -28,6 +28,9 @@ def main():
     # Extract and store the items (i.e. the artifact names)
     extract_and_store_items(artifacts_page_extractor, storage)
 
+    # Extract and store the items sets (i.e. the artifact sets description)
+    extract_and_store_items_sets(artifacts_page_extractor, storage)
+
 
 def get_page_extractor_from_url(url):
     page_browser = browser.Browser(url)
@@ -50,6 +53,11 @@ def extract_and_store_weapons(page_extractor, storage):
 def extract_and_store_items(artifacts_extractor, storage):
     items_names = artifacts_extractor.extract_artifacts_name()
     storage.store_items(items_names)
+
+
+def extract_and_store_items_sets(artifacts_extractor, storage):
+    items_sets = artifacts_extractor.extract_artifacts_description()
+    storage.store_items_sets(items_sets)
 
 
 # Press the green button in the gutter to run the script.
