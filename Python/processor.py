@@ -99,3 +99,34 @@ class Processor:
             return " / ".join(sorted_stat_list)
         else:
             return stat
+
+    def preprocess_characters_raw_data_for_characters_items(self):
+        character_items_list = list()
+
+        for character_data in self._data:
+            name = character_data["name"]
+            artifacts = character_data["artifacts"]
+
+            new_artifacts = [
+                self._extract_item_to_slot(
+                    "Artifact", index + 1, artifacts[index])
+                for index in range(len(artifacts))]
+            new_artifacts = [
+                artifact for artifacts_list in new_artifacts
+                for artifact in artifacts_list]
+
+            for artifact in new_artifacts:
+                slot_name_with_id, item, quantity = artifact.split(";")
+                item = item.replace("'", "''")
+                character_items_list.append((name, slot_name_with_id,
+                                             item, quantity))
+
+        return character_items_list
+
+    def _extract_item_to_slot(self, slot_name, slot_id, items):
+        slot_name_with_id = "{} {}".format(slot_name, slot_id)
+        new_items = ["{};{};{}".format(
+            slot_name_with_id, item.split(";")[0], item.split(";")[1])
+            for item in items]
+
+        return new_items
