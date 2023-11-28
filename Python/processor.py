@@ -53,6 +53,19 @@ class Processor:
 
         return slot_names_list
 
+    def preprocess_characters_raw_data_for_character(self):
+        characters_list = list()
+
+        for character_data in self._data:
+            name = character_data["name"]
+            rarity = character_data["rarity"]
+            element = character_data["element"]
+            weapon = character_data["weapon"]
+
+            characters_list.append((name, rarity, element, weapon))
+
+        return characters_list
+
     def _sort_stat_alphabetical_order(self, stat):
         if stat.find("/") != -1:
             sorted_stat_list = sorted(stat.split(" / "))
