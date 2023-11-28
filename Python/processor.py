@@ -25,6 +25,34 @@ class Processor:
 
         return all_stats_set
 
+    def preprocess_characters_raw_data_for_slot(self):
+        stats_slot_names_list = [
+            name.split(";")[0] for name in self._data[0]["stats"]]
+        substats_slot_names_list = self._get_slot_name_list(
+            "substats", "Substat")
+        artifacts_slot_names_list = self._get_slot_name_list(
+            "artifacts", "Artifact")
+
+        all_slot_names = (stats_slot_names_list
+                          + substats_slot_names_list
+                          + artifacts_slot_names_list)
+
+        return all_slot_names
+
+    def _get_slot_name_list(self, key, slot_name):
+        slot_sizes_set = set()
+
+        for character_data in self._data:
+            number_slots_from_key = len([slot for slot in character_data[key]])
+            slot_sizes_set.add(number_slots_from_key)
+
+        max_number_slots_from_key = max(slot_sizes_set)
+        slot_names_list = ["{} {}".format(
+            slot_name, index)
+            for index in range(1, max_number_slots_from_key + 1)]
+
+        return slot_names_list
+
     def _sort_stat_alphabetical_order(self, stat):
         if stat.find("/") != -1:
             sorted_stat_list = sorted(stat.split(" / "))
