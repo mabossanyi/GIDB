@@ -39,11 +39,14 @@ def main():
     # Get the class "Processor" from the characters raw data
     data_processor = processor.Processor(storage.get_characters_raw_data())
 
-    # Preprocess and store stats from the characters raw data
+    # Preprocess and store the stats from the characters raw data
     preprocess_and_store_stats(data_processor, storage)
 
-    # Preprocess and store slots from the characters raw data
+    # Preprocess and store the slots from the characters raw data
     preprocess_and_store_slots(data_processor, storage)
+
+    # Preprocess and store the characters from the characters raw data
+    preprocess_and_store_characters(data_processor, storage)
 
 
 def get_page_extractor_from_url(url):
@@ -55,12 +58,12 @@ def get_page_extractor_from_url(url):
 
 
 def extract_and_store_elements(page_extractor, storage):
-    elements = page_extractor.extract_weapons()
+    elements = page_extractor.extract_elements()
     storage.store_elements(elements)
 
 
 def extract_and_store_weapons(page_extractor, storage):
-    weapons = page_extractor.extract_elements()
+    weapons = page_extractor.extract_weapons()
     storage.store_weapons(weapons)
 
 
@@ -87,6 +90,11 @@ def preprocess_and_store_stats(data_processor, storage):
 def preprocess_and_store_slots(data_processor, storage):
     slots = data_processor.preprocess_characters_raw_data_for_slot()
     storage.store_slots(slots)
+
+
+def preprocess_and_store_characters(data_processor, storage):
+    characters = data_processor.preprocess_characters_raw_data_for_character()
+    storage.store_characters(characters)
 
 
 # Press the green button in the gutter to run the script.
