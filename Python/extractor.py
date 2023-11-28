@@ -49,6 +49,26 @@ class Extractor:
 
         return names_list
 
+    def extract_artifacts_description(self):
+        artifacts_details_list = self._extract_html_from_rt_tr_group_tag()
+        new_artifacts_details_list = list()
+
+        for line in artifacts_details_list:
+            pattern = '<div class="rt-td".*?>.*?</div>'
+            match_results_list = re.findall(pattern, line, re.IGNORECASE)
+
+            name = re.sub('<div class=.*?.png">', '', match_results_list[0])
+            name = re.sub('</div>', '', name)
+            name = name.replace("'", "''")
+
+            new_artifacts_details_list.append(
+                self._extract_artifact_description_with_count(
+                    "2", match_results_list[-2], name))
+            new_artifacts_details_list.append(
+                self._extract_artifact_description_with_count(
+                    "4", match_results_list[-1], name))
+
+        return new_artifacts_details_list
 
     def _extract_html_from_rt_tr_group_tag(self):
         pattern = '<div class="rt-tr-group".*?>.*?</div></div></div>'
@@ -58,3 +78,11 @@ class Extractor:
                               if match_result.find("rarity-3") == -1]
 
         return match_results_list
+
+    def _extract_artifact_description_with_count(self, quantity,
+                                                 description_html, name):
+        description = re.sub('<div .*?>', '', description_html)
+        description = re.sub('</div>', '', description)
+        description = description.replace("'", "''")
+
+        return name, quantity, description
