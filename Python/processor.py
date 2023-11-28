@@ -66,6 +66,33 @@ class Processor:
 
         return characters_list
 
+    def preprocess_characters_raw_data_for_characters_stat(self):
+        characters_stats_list = list()
+
+        for character_data in self._data:
+            name = character_data["name"]
+            stats = character_data["stats"]
+            substats = character_data["substats"]
+
+            new_stats = ["{};{}".format(
+                stat.split(";")[0],
+                self._sort_stat_alphabetical_order(stat.split(";")[1]))
+                for stat in stats]
+            new_substats = [
+                self._sort_stat_alphabetical_order(substat)
+                for substat in substats]
+            new_substats = ["Substat {};{}".format(
+                index + 1, new_substats[index])
+                for index in range(len(new_substats))]
+
+            new_stats_and_substats = new_stats + new_substats
+
+            for stat_or_substat in new_stats_and_substats:
+                slot_name, stat = stat_or_substat.split(";")
+                characters_stats_list.append((name, slot_name, stat))
+
+        return characters_stats_list
+
     def _sort_stat_alphabetical_order(self, stat):
         if stat.find("/") != -1:
             sorted_stat_list = sorted(stat.split(" / "))
