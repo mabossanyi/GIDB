@@ -17,6 +17,9 @@ def main():
     # Extract and store the elements
     extract_and_store_elements(main_page_extractor, storage)
 
+    # Extract and store the weapons
+    extract_and_store_weapons(main_page_extractor, storage)
+
 
 def get_page_extractor_from_url(url):
     page_browser = browser.Browser(url)
@@ -27,8 +30,13 @@ def get_page_extractor_from_url(url):
 
 
 def extract_and_store_elements(page_extractor, storage):
-    elements = page_extractor.extract_elements()
+    elements = page_extractor.extract_weapons()
     storage.store_elements(elements)
+
+
+def extract_and_store_weapons(page_extractor, storage):
+    weapons = page_extractor.extract_elements()
+    storage.store_weapons(weapons)
 
 
 # Press the green button in the gutter to run the script.
