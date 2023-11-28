@@ -1,6 +1,7 @@
 # Libraries
 import browser
 import extractor
+import processor
 from storage import Storage
 
 
@@ -35,6 +36,11 @@ def main():
     extract_and_store_characters_data(
         main_page_url, main_page_extractor, storage)
 
+    # Get the class "Processor" from the characters raw data
+    data_processor = processor.Processor(storage.get_characters_raw_data())
+
+    # Preprocess and store stats from the characters raw data
+    preprocess_and_store_stats(data_processor, storage)
 
 def get_page_extractor_from_url(url):
     page_browser = browser.Browser(url)
@@ -67,6 +73,11 @@ def extract_and_store_items_sets(artifacts_extractor, storage):
 def extract_and_store_characters_data(url, page_extractor, storage):
     characters_raw_data = page_extractor.extract_characters_raw_data(url)
     storage.store_characters_raw_data(characters_raw_data)
+
+
+def preprocess_and_store_stats(data_processor, storage):
+    stats = data_processor.preprocess_characters_raw_data_for_stat()
+    storage.store_stats(stats)
 
 
 # Press the green button in the gutter to run the script.
