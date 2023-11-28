@@ -228,6 +228,17 @@ class Extractor:
         all_stats_and_substats = [re.sub('</div>', '', line)
                                   for line in all_stats_and_substats]
 
+        # Fixing typos
+        all_stats_and_substats = [line.replace("Master", "Mastery")
+                                  if line.find("Master") != -1
+                                  and line.find("Mastery") == -1
+                                  else line
+                                  for line in all_stats_and_substats]
+        all_stats_and_substats = [line.replace("Crit", "CRIT")
+                                  for line in all_stats_and_substats]
+        all_stats_and_substats = [line.replace("Rechage", "Recharge")
+                                  for line in all_stats_and_substats]
+
         for single_stat_or_substats in all_stats_and_substats:
             if single_stat_or_substats.find(">") == -1:
                 slot_and_stat = single_stat_or_substats.replace(":", ";")
