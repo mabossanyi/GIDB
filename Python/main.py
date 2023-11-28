@@ -20,6 +20,14 @@ def main():
     # Extract and store the weapons
     extract_and_store_weapons(main_page_extractor, storage)
 
+    # Get the class "Extractor" for the artifacts page using the URL
+    # to extract the HTML
+    artifacts_page_url = "https://genshin.gg/artifacts/"
+    artifacts_page_extractor = get_page_extractor_from_url(artifacts_page_url)
+
+    # Extract and store the items (i.e. the artifact names)
+    extract_and_store_items(artifacts_page_extractor, storage)
+
 
 def get_page_extractor_from_url(url):
     page_browser = browser.Browser(url)
@@ -37,6 +45,11 @@ def extract_and_store_elements(page_extractor, storage):
 def extract_and_store_weapons(page_extractor, storage):
     weapons = page_extractor.extract_elements()
     storage.store_weapons(weapons)
+
+
+def extract_and_store_items(artifacts_extractor, storage):
+    items_names = artifacts_extractor.extract_artifacts_name()
+    storage.store_items(items_names)
 
 
 # Press the green button in the gutter to run the script.

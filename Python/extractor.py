@@ -38,3 +38,23 @@ class Extractor:
                         for line in results_list]
 
         return results_list
+
+    def extract_artifacts_name(self):
+        artifacts_details_list = self._extract_html_from_rt_tr_group_tag()
+        names_list = [re.sub('<div class=.*?.png">', '', line)
+                      for line in artifacts_details_list]
+        names_list = [re.sub('</div>.*?</div></div></div>', '', line)
+                      for line in names_list]
+        names_list = [name.replace("'", "''") for name in names_list]
+
+        return names_list
+
+
+    def _extract_html_from_rt_tr_group_tag(self):
+        pattern = '<div class="rt-tr-group".*?>.*?</div></div></div>'
+        match_results_list = re.findall(pattern, self._raw_html, re.IGNORECASE)
+        match_results_list = [match_result
+                              for match_result in match_results_list
+                              if match_result.find("rarity-3") == -1]
+
+        return match_results_list
