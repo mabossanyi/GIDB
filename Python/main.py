@@ -48,6 +48,9 @@ def main():
     # Preprocess and store the characters from the characters raw data
     preprocess_and_store_characters(data_processor, storage)
 
+    # Preprocess and store the characters stats from the characters raw data
+    preprocess_and_store_characters_stats(data_processor, storage)
+
 
 def get_page_extractor_from_url(url):
     page_browser = browser.Browser(url)
@@ -95,6 +98,12 @@ def preprocess_and_store_slots(data_processor, storage):
 def preprocess_and_store_characters(data_processor, storage):
     characters = data_processor.preprocess_characters_raw_data_for_character()
     storage.store_characters(characters)
+
+
+def preprocess_and_store_characters_stats(data_processor, storage):
+    characters_stats = (
+        data_processor.preprocess_characters_raw_data_for_characters_stat())
+    storage.store_characters_stats(characters_stats)
 
 
 # Press the green button in the gutter to run the script.
