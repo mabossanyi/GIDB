@@ -5,6 +5,7 @@ class Storage:
     _items = None
     _items_sets = None
     _characters_raw_data = None
+    _stats = None
 
     # Constructors
     def __init__(self):
@@ -13,6 +14,7 @@ class Storage:
         self._items = list()
         self._items_sets = list()
         self._characters_raw_data = list()
+        self._stats = list()
 
     # Getters
     def get_stored_elements(self):
@@ -29,6 +31,9 @@ class Storage:
 
     def get_characters_raw_data(self):
         return self._characters_raw_data
+
+    def get_stored_stats(self):
+        return self._stats
 
     # Methods
     def store_elements(self, elements):
@@ -61,3 +66,10 @@ class Storage:
 
     def store_characters_raw_data(self, characters_raw_data):
         self._characters_raw_data = characters_raw_data
+
+    def store_stats(self, stats):
+        id_stat = 1
+
+        for stat in stats:
+            self._stats.append((id_stat, stat))
+            id_stat += 1
