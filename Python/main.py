@@ -3,10 +3,14 @@ import browser
 import extractor
 import processor
 from storage import Storage
+from writer import Writer
 
 
 # Methods
 def main():
+    # Header of the program
+    version = "TODO"
+
     # Get the class "Extractor" for the main page using the URL
     # to extract the HTML
     main_page_url = "https://genshin.gg/"
@@ -53,6 +57,10 @@ def main():
 
     # Preprocess and store the characters items from the characters raw data
     preprocess_and_store_characters_items(data_processor, storage)
+
+    # Write the "INSERT.sql" file
+    file_name = "INSERT.sql"
+    write_insert_sql_file(file_name, version, storage)
 
 
 def get_page_extractor_from_url(url):
@@ -113,6 +121,11 @@ def preprocess_and_store_characters_items(data_processor, storage):
     characters_items = (
         data_processor.preprocess_characters_raw_data_for_characters_items())
     storage.store_characters_items(characters_items)
+
+
+def write_insert_sql_file(file_name, version, storage):
+    file_writer = Writer()
+    file_writer.write_insert_sql_file(file_name, version, storage)
 
 
 # Press the green button in the gutter to run the script.
