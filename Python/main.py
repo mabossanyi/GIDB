@@ -9,7 +9,7 @@ from writer import Writer
 # Methods
 def main():
     # Header of the program
-    version = "TODO"
+    version = "4.2 (Phase 2)"
     print("Running the Genshin Impact Database (GIDB) script using "
           "the version '{}'\n".format(version))
 
