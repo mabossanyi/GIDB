@@ -22,10 +22,10 @@ class Writer:
         file = open(file_path, "w")
 
         self._write_file_header(file, version)
-        self._write_insert_element_sql_file(file, storage)
-        self._write_insert_weapon_sql_file(file, storage)
-        self._write_insert_item_sql_file(file, storage)
-        self._write_insert_items_set_sql_file(file, storage)
+        self._write_elements_to_insert_sql_file(file, storage)
+        self._write_weapons_to_insert_sql_file(file, storage)
+        self._write_items_to_insert_sql_file(file, storage)
+        self._write_item_sets_to_insert_sql_file(file, storage)
         self._write_insert_stat_sql_file(file, storage)
         self._write_insert_slot_sql_file(file, storage)
         self._write_insert_character_sql_file(file, storage)
@@ -44,7 +44,7 @@ class Writer:
         file.write("\tGenshin Impact - {}\n".format(version))
         file.write("*/\n\n")
 
-    def _write_insert_element_sql_file(self, file, storage):
+    def _write_elements_to_insert_sql_file(self, file, storage):
         file.write('-- Script INSERT for the table "Element"\n')
         stored_types = storage.get_stored_elements()
 
@@ -55,7 +55,7 @@ class Writer:
 
         file.write("\n")
 
-    def _write_insert_weapon_sql_file(self, file, storage):
+    def _write_weapons_to_insert_sql_file(self, file, storage):
         file.write('-- Script INSERT for the table "Weapon"\n')
         stored_paths = storage.get_stored_weapons()
 
@@ -66,7 +66,7 @@ class Writer:
 
         file.write("\n")
 
-    def _write_insert_item_sql_file(self, file, storage):
+    def _write_items_to_insert_sql_file(self, file, storage):
         file.write('-- Script INSERT for the table "Item"\n')
         stored_items = storage.get_stored_items()
 
@@ -77,18 +77,18 @@ class Writer:
 
         file.write("\n")
 
-    def _write_insert_items_set_sql_file(self, file, storage):
+    def _write_item_sets_to_insert_sql_file(self, file, storage):
         file.write('-- Script INSERT for the table "ItemsSet"\n')
-        stored_items_set = storage.get_stored_items_sets()
+        stored_item_sets = storage.get_stored_item_sets()
 
-        for (id_item, quantity, description) in stored_items_set:
+        for (id_item, quantity, description) in stored_item_sets:
             file.write("INSERT INTO ItemsSet (idItem, quantity, description) "
                        "VALUES ({}, {}, '{}');\n"
                        .format(id_item, quantity, description))
 
         file.write("\n")
 
-    def _write_insert_stat_sql_file(self, file, storage):
+    def _write_stats_to_insert_sql_file(self, file, storage):
         file.write('-- Script INSERT for the table "Stat"\n')
         stored_stats = storage.get_stored_stats()
 
@@ -99,7 +99,7 @@ class Writer:
 
         file.write("\n")
 
-    def _write_insert_slot_sql_file(self, file, storage):
+    def _write_slots_to_insert_sql_file(self, file, storage):
         file.write('-- Script INSERT for the table "Slot"\n')
         stored_slots = storage.get_stored_slots()
 
@@ -110,7 +110,7 @@ class Writer:
 
         file.write("\n")
 
-    def _write_insert_character_sql_file(self, file, storage):
+    def _write_charaters_to_insert_sql_file(self, file, storage):
         file.write('-- Script INSERT for the table "Character"\n')
         stored_characters = storage.get_stored_characters()
 
@@ -124,12 +124,12 @@ class Writer:
 
         file.write("\n")
 
-    def _write_insert_character_stat_sql_file(self, file, storage):
+    def _write_character_stats_to_insert_sql_file(self, file, storage):
         file.write('-- Script INSERT for the table "CharacterStat"\n')
-        stored_characters_stats = storage.get_stored_characters_stats()
+        stored_character_stats = storage.get_stored_character_stats()
 
         for (id_character, id_slot, id_stat) \
-                in stored_characters_stats:
+                in stored_character_stats:
             file.write("INSERT INTO CharacterStat ("
                        "idCharacter, idSlot, idStat) "
                        "VALUES ({}, {}, {});\n"
@@ -137,12 +137,12 @@ class Writer:
 
         file.write("\n")
 
-    def _write_insert_character_item_sql_file(self, file, storage):
+    def _write_character_items_to_insert_sql_file(self, file, storage):
         file.write('-- Script INSERT for the table "CharacterItem"\n')
-        stored_characters_items = storage.get_stored_characters_items()
+        stored_character_items = storage.get_stored_character_items()
 
         for (id_character, id_slot, id_stat, quantity) \
-                in stored_characters_items:
+                in stored_character_items:
             file.write("INSERT INTO CharacterItem ("
                        "idCharacter, idSlot, idItem) "
                        "VALUES ({}, {}, {});\n"
