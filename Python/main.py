@@ -9,7 +9,7 @@ from writer import Writer
 # Methods
 def main():
     # Header of the program
-    version = "4.2 (Phase 2)"
+    version = "4.3 (Phase 2)"
     print("Running the Genshin Impact Database (GIDB) script using "
           "the version '{}'\n".format(version))
 
@@ -38,9 +38,9 @@ def main():
     print("Extracting and storing the items (artifacts)...")
     extract_and_store_items(artifacts_page_extractor, storage)
 
-    # Extract and store the items sets (i.e. the artifact sets description)
+    # Extract and store the item sets (i.e. the artifact sets description)
     print("Extracting and storing the items sets...")
-    extract_and_store_items_sets(artifacts_page_extractor, storage)
+    extract_and_store_item_sets(artifacts_page_extractor, storage)
 
     # Extract and store the characters data for each character on the main page
     print("Extracting and storing the characters data for each character...")
@@ -62,13 +62,13 @@ def main():
     print("Preprocessing and storing the characters...")
     preprocess_and_store_characters(data_processor, storage)
 
-    # Preprocess and store the characters stats from the characters raw data
+    # Preprocess and store the character stats from the characters raw data
     print("Preprocessing and storing the characters-stats...")
-    preprocess_and_store_characters_stats(data_processor, storage)
+    preprocess_and_store_character_stats(data_processor, storage)
 
-    # Preprocess and store the characters items from the characters raw data
+    # Preprocess and store the character items from the characters raw data
     print("Preprocessing and storing the characters-items...")
-    preprocess_and_store_characters_items(data_processor, storage)
+    preprocess_and_store_character_items(data_processor, storage)
 
     # Write the "INSERT.sql" file
     file_name = "INSERT.sql"
@@ -105,11 +105,11 @@ def extract_and_store_items(artifacts_extractor, storage):
     print(" Completed.\n\t --> Total of {} item(s)\n".format(len(item_names)))
 
 
-def extract_and_store_items_sets(artifacts_extractor, storage):
-    items_sets = artifacts_extractor.extract_artifacts_description()
-    storage.store_items_sets(items_sets)
+def extract_and_store_item_sets(artifacts_extractor, storage):
+    item_sets = artifacts_extractor.extract_artifacts_description()
+    storage.store_item_sets(item_sets)
     print(" Completed.\n\t --> Total of {} items set(s)\n".format(
-        len(items_sets)))
+        len(item_sets)))
 
 
 def extract_and_store_characters_data(url, page_extractor, storage):
@@ -120,40 +120,40 @@ def extract_and_store_characters_data(url, page_extractor, storage):
 
 
 def preprocess_and_store_stats(data_processor, storage):
-    stats = data_processor.preprocess_characters_raw_data_for_stat()
+    stats = data_processor.preprocess_characters_raw_data_for_stats()
     storage.store_stats(stats)
     _print_verbosity_from_data(stats)
     print(" Completed.\n\t --> Total of {} stat(s)\n".format(len(stats)))
 
 
 def preprocess_and_store_slots(data_processor, storage):
-    slots = data_processor.preprocess_characters_raw_data_for_slot()
+    slots = data_processor.preprocess_characters_raw_data_for_slots()
     storage.store_slots(slots)
     _print_verbosity_from_data(slots)
     print(" Completed.\n\t --> Total of {} slot(s)\n".format(len(slots)))
 
 
 def preprocess_and_store_characters(data_processor, storage):
-    characters = data_processor.preprocess_characters_raw_data_for_character()
+    characters = data_processor.preprocess_characters_raw_data_for_characters()
     storage.store_characters(characters)
     print(" Completed.\n\t --> Total of {} character(s)\n".format(
         len(characters)))
 
 
-def preprocess_and_store_characters_stats(data_processor, storage):
-    characters_stats = (
-        data_processor.preprocess_characters_raw_data_for_characters_stat())
-    storage.store_characters_stats(characters_stats)
+def preprocess_and_store_character_stats(data_processor, storage):
+    character_stats = (
+        data_processor.preprocess_characters_raw_data_for_character_stats())
+    storage.store_character_stats(character_stats)
     print(" Completed.\n\t --> Total of {} characters-stat(s)\n".format(
-        len(characters_stats)))
+        len(character_stats)))
 
 
-def preprocess_and_store_characters_items(data_processor, storage):
-    characters_items = (
-        data_processor.preprocess_characters_raw_data_for_characters_items())
-    storage.store_characters_items(characters_items)
+def preprocess_and_store_character_items(data_processor, storage):
+    character_items = (
+        data_processor.preprocess_characters_raw_data_for_character_items())
+    storage.store_character_items(character_items)
     print(" Completed.\n\t --> Total of {} characters-item(s)\n".format(
-        len(characters_items)))
+        len(character_items)))
 
 
 def write_insert_sql_file(file_name, version, storage):
