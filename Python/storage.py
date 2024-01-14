@@ -3,26 +3,26 @@ class Storage:
     _elements = None
     _weapons = None
     _items = None
-    _items_sets = None
+    _item_sets = None
     _characters_raw_data = None
     _stats = None
     _slots = None
     _characters = None
-    _characters_stats = None
-    _characters_items = None
+    _character_stats = None
+    _character_items = None
 
     # Constructors
     def __init__(self):
         self._elements = list()
         self._weapons = list()
         self._items = list()
-        self._items_sets = list()
+        self._item_sets = list()
         self._characters_raw_data = list()
         self._stats = list()
         self._slots = list()
         self._characters = list()
-        self._characters_stats = list()
-        self._characters_items = list()
+        self._character_stats = list()
+        self._character_items = list()
 
     # Getters
     def get_stored_elements(self):
@@ -34,8 +34,8 @@ class Storage:
     def get_stored_items(self):
         return self._items
 
-    def get_stored_items_sets(self):
-        return self._items_sets
+    def get_stored_item_sets(self):
+        return self._item_sets
 
     def get_characters_raw_data(self):
         return self._characters_raw_data
@@ -49,11 +49,11 @@ class Storage:
     def get_stored_characters(self):
         return self._characters
 
-    def get_stored_characters_stats(self):
-        return self._characters_stats
+    def get_stored_character_stats(self):
+        return self._character_stats
 
-    def get_stored_characters_items(self):
-        return self._characters_items
+    def get_stored_character_items(self):
+        return self._character_items
 
     # Methods
     def store_elements(self, elements):
@@ -77,12 +77,12 @@ class Storage:
             self._items.append((id_item, item))
             id_item += 1
 
-    def store_items_sets(self, items_sets):
-        for item in items_sets:
+    def store_item_sets(self, item_sets):
+        for item in item_sets:
             (name, quantity, description) = item
             id_item = str([item[0] for item in self.get_stored_items()
                            if name == item[1]][0])
-            self._items_sets.append((id_item, quantity, description))
+            self._item_sets.append((id_item, quantity, description))
 
     def store_characters_raw_data(self, characters_raw_data):
         self._characters_raw_data = characters_raw_data
@@ -116,8 +116,8 @@ class Storage:
                                      id_element, id_weapon))
             id_character += 1
 
-    def store_characters_stats(self, characters_stats):
-        for character_stat in characters_stats:
+    def store_character_stats(self, character_stats):
+        for character_stat in character_stats:
             (name, slot_name, stat) = character_stat
             id_character = str(
                 [character[0] for character in self.get_stored_characters()
@@ -126,10 +126,10 @@ class Storage:
                            if slot_name == slot[1]][0])
             id_stat = str([stat_st[0] for stat_st in self.get_stored_stats()
                            if stat == stat_st[1]][0])
-            self._characters_stats.append((id_character, id_slot, id_stat))
+            self._character_stats.append((id_character, id_slot, id_stat))
 
-    def store_characters_items(self, characters_items):
-        for character_item in characters_items:
+    def store_character_items(self, character_items):
+        for character_item in character_items:
             (name, slot_name, item_name, quantity) = character_item
             id_character = str(
                 [character[0] for character in self.get_stored_characters()
@@ -138,5 +138,5 @@ class Storage:
                            if slot_name == slot[1]][0])
             id_item = str([item[0] for item in self.get_stored_items()
                            if item_name == item[1]][0])
-            self._characters_items.append((id_character, id_slot,
-                                           id_item, quantity))
+            self._character_items.append((id_character, id_slot,
+                                          id_item, quantity))
